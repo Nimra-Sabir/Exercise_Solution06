@@ -1,0 +1,610 @@
+//Program#01
+/*Create a class that imitates part of the functionality of the basic data type int. Call the
+class Int (note different capitalization). The only data in this class is an int variable.
+Include member functions to initialize an Int to 0, to initialize it to an int value, to display 
+it (it looks just like an int), and to add two Int values.
+Write a program that exercises this class by creating one uninitialized and two initialized
+Int values, adding the two initialized values and placing the response in the uninitialized
+value, and then displaying this result.*/
+
+#include<iostream>
+using namespace std;
+class Int {
+private:
+	int var;
+public:
+	Int(): var(0)
+	{ }
+	Int(int a) : var(a)
+	{ }
+	void show()
+	{
+		cout << " Variable=" << var << endl;
+	}
+	Int Addition(Int obj2)
+	{
+		var += obj2.var;
+		return Int(var);
+	}
+
+}; 
+
+int main()
+{
+	Int obj1(100), obj2(20);
+	Int obj3 = obj1.Addition(obj2);
+	obj3.show();
+	return 0;
+	system(" PAUSE");
+ }
+ 
+ //Program#02
+ /*Imagine a tollbooth at a bridge. Cars passing by the booth are expected to pay a 50 cent
+toll. Mostly they do, but sometimes a car goes by without paying. The tollbooth keeps
+track of the number of cars that have gone by, and of the total amount of money collected.
+Model this tollbooth with a class called tollBooth. The two data items are a type
+unsigned int to hold the total number of cars, and a type double to hold the total amount
+of money collected. A constructor initializes both of these to 0. A member function called
+payingCar() increments the car total and adds 0.50 to the cash total. Another function,
+called nopayCar(), increments the car total but adds nothing to the cash total. Finally, a
+member function called display() displays the two totals. Make appropriate member
+functions const.
+Include a program to test this class. This program should allow the user to push one key
+to count a paying car, and another to count a nonpaying car. Pushing the Esc key should
+cause the program to print out the total cars and total cash and then exit.*/
+
+#include<iostream>
+#include<conio.h>
+using namespace std;
+class Tollbooth
+{
+private:
+	unsigned int cars;
+	double cash;
+	float add = 0.50;
+public:
+	Tollbooth()
+	{
+		cars = 0;
+		cash = 0.0;
+	}
+	void payingcars()
+	{
+		cars++;
+		cash += add;
+	}
+	void nopaycars()
+	{
+		cars++;
+	}
+	void show()
+	{
+		cout << "Total Cars= "<<cars<<endl;
+		cout << "Total Cash Amount= " << cash << endl;
+	}
+	
+};
+int main()
+{
+	Tollbooth result;
+	char choice;
+	while (true)
+	{
+		cout << "Enter '0' for paying car ,'1' for No pay car and ! to exit programme "<<endl;
+		cin >> choice;
+		if (choice == '0')
+		{
+			result.payingcars();
+		}
+		else if (choice == '1')
+		{
+			result.nopaycars();
+		}
+		else if (choice == '!')
+		{
+			result.show();
+			break;
+		}
+	}
+	return 0;
+}
+
+//Program#03
+/*Create a class called time that has separate int member data for hours, minutes, and
+seconds. One constructor should initialize this data to 0, and another should initialize it
+to fixed values. Another member function should display it, in 11:59:59 format. The final
+member function should add two objects of type time passed as arguments.
+A main() program should create two initialized time objects (should they be const?) and
+one that isn’t initialized. Then it should add the two initialized values together, leaving the
+result in the third time variable. Finally it should display the value of this third variable.
+Make appropriate member functions const.*/
+
+#include<iostream>
+#include<conio.h>
+using namespace std;
+class Time
+{
+private:
+	int hrs, min, sec;
+public:
+	Time() : hrs(0), min(0), sec(0)
+	{ }
+	Time(int h, int m, int s) : hrs(h), min(m), sec(s)
+	{ }
+	void get()
+	{
+		std::cout << " Enter Time in hh:mm:ss Format" << endl;
+		cin >> hrs >> min >> sec;
+	}
+	void show()
+	{
+		cout << hrs << ":" << min << ":" << sec << endl;
+	}
+	void AddTime (Time t1,Time t2)
+	{
+	 sec = t1.sec + t2.sec;
+     min = t1.min + t2.min;
+	 hrs = t1.hrs + t2.hrs;
+	if (sec >= 60)
+	{
+		sec -= 60;
+		min++;
+	}
+	if (min >= 60)
+	{
+		min-= 60;
+		hrs++;
+	}
+	
+}
+};
+
+
+
+int main()
+{
+	Time t1, t2(4,30,20), t3;
+	t1.get();
+	t3.AddTime(t1,t2);
+	t3.show();
+	return 0;
+}
+
+
+//Program#04
+/*Create an employee class, basing it on Exercise 4 of Chapter 4. The member data should
+comprise an int for storing the employee number and a float for storing the employee’s
+compensation. Member functions should allow the user to enter this data and display it.
+Write a main() that allows the user to enter data for three employees and display it.*/
+
+#include<iostream>
+using namespace std;
+class Employee
+{
+private:
+	int emp_num;          //Employee Number
+	float emp_com;       //Employee Compensation
+public:
+	Employee(): emp_num(0), emp_com(0)
+	{ }
+	void getdata()
+	{
+		cout << "Enter ID: " << endl;
+		cin >> emp_num;
+		cout << "Enter Compensation: " << endl;
+		cin >> emp_com;
+	}
+	void putdata()
+	{
+		cout << " ID: " <<emp_num<< endl;
+		cout << " Compensation: " << emp_com << endl;
+	}
+
+};
+int main()
+{   
+	system(" color f0");
+	Employee emp1, emp2, emp3;
+	emp1.getdata();
+	emp2.getdata();
+	emp3.getdata();
+
+	cout << " \n\n\tRecord of Employees\n\n" ;
+	emp1.putdata();
+	emp2.putdata();
+	emp3.putdata();
+	system("PAUSE ");
+}
+//Program#05
+/*Start with the date structure in Exercise 5 in Chapter 4 and transform it into a date
+class. Its member data should consist of three ints: month, day, and year. It should also
+have two member functions: getdate(), which allows the user to enter a date in
+12/31/02 format, and showdate(), which displays the date*/
+
+#include <iostream>
+using namespace std;
+class Date
+{
+private:
+    int day, mon, year;
+public:
+    Date()
+    {
+        day = mon = year = 0;
+    }
+    void get() 
+    {
+        cout << "Input date in mm/dd/yy Format"<<endl;
+        cin >> mon>>day>>year;
+        cout << endl;
+    }
+    void put()
+    {
+        cout << "Date :";
+        cout<<mon<<"\\"<<day<<"\\"<<year;
+        cout << endl;
+    }
+    ~Date()
+    { }
+};
+
+int main()
+{ 
+    system("color f0");
+    Date dateobj;
+    dateobj.get();
+    dateobj.put();
+    system("PAUSE");
+
+}
+
+
+//Program#06
+/*Extend the employee class of Exercise 4 to include a date class (see Exercise 5) and an
+etype enum (see Exercise 6 in Chapter 4). An object of the date class should be used to
+hold the date of first employment; that is, the date when the employee was hired. The
+etype variable should hold the employee’s type: laborer, secretary, manager, and so on.
+These two items will be private member data in the employee definition, just like the
+employee number and salary. You’ll need to extend the getemploy() and putemploy()
+functions to obtain this new information from the user and display it. These functions will
+probably need switch statements to handle the etype variable. Write a main() program that
+allows the user to enter data for three employee variables and then displays this data*/
+
+#include<iostream>
+using namespace std;
+enum Etype{Laborer,Manager,secretary,Researcher,Accountant};
+class Date
+{
+private:
+    int m, d, y;
+public:
+    void get()
+    {
+        cout << "Input date in mm/dd/yy Format:";
+        cin >> m>> d >> y;
+        cout << endl;
+    }
+    void put()
+    {
+        cout << "Hiring date :" << m << "\\" << d << "\\" << y;
+        cout << endl;
+    }
+};
+class EmpRecord
+{
+private:
+    Etype jobtype;
+    Date hiringdate;
+    int id;
+    float salary;
+    char ch;
+public:
+    void getdata()
+    {
+        cout << "Input your ID & Salary" << endl;
+        cin >> id >> salary;
+        cout << "Enter the type of your job \nlet 'm' for Manager\n ,'l' for Laborer \n 's' for Secretary\n 'a' for accountant \n 
+        and 'r' for Researcher: ";
+        cin>>ch;
+        switch (ch)
+        { 
+         case 'm':
+           jobtype=Manager;
+           break;
+        case 's':
+           jobtype=secretary;
+           break;
+        case 'l':
+           jobtype=Laborer;
+           break;
+        case 'a':
+           jobtype=Accountant;
+           break;
+        case 'r':
+           jobtype=Researcher;
+           break;
+			 
+        }
+        
+        hiringdate.get();
+
+    }
+    void putdata()
+    {
+        cout << "ID:" << id << endl;
+        cout << "job Type: ";
+        switch(jobtype)
+        {
+         case 0:
+		 cout<<"Manager"<<endl;
+		 break; 
+		  case 1:
+		 cout<<"Accountant"<<endl;
+		 break; 	
+		  case 2:
+		 cout<<"Laborer"<<endl;
+		 break; 	
+		  case 3:
+		 cout<<"Secretary"<<endl;
+		 break; 	
+		  case 4:
+		 cout<<"Researcher"<<endl;
+		 break; 		
+		}
+        hiringdate.put();
+        cout << "Employee Salary:"<<salary << endl;
+    }
+
+};
+int main( )
+{
+    system("color f0");
+    EmpRecord emp;
+    cout << "\n\tEnter Employee Information\t\n\n ";
+    emp.getdata();
+    cout << "\n\t Employee Information\n ";
+    emp.putdata();
+    system("PAUSE");
+    return 0;
+}
+//Program#07
+/*In ocean navigation, locations are measured in degrees and minutes of latitude and longitude. 
+Thus if you’re lying off the mouth of Papeete Harbor in Tahiti, your location is 149
+degrees 34.8 minutes west longitude, and 17 degrees 31.5 minutes south latitude. This is
+written as 149°34.8’ W, 17°31.5’ S. There are 60 minutes in a degree. (An older system
+also divided a minute into 60 seconds, but the modern approach is to use decimal minutes
+instead.) Longitude is measured from 0 to 180 degrees, east or west from Greenwich,
+England, to the international dateline in the Pacific. Latitude is measured from 0 to 90
+degrees, north or south from the equator to the poles.
+Create a class angle that includes three member variables: an int for degrees, a float
+for minutes, and a char for the direction letter (N, S, E, or W). This class can hold either
+a latitude variable or a longitude variable. Write one member function to obtain an angle
+value (in degrees and minutes) and a direction from the user, and a second to display the
+angle value in 179°59.9’ E format. Also write a three-argument constructor. Write a
+main() program that displays an angle initialized with the constructor, and then, within a
+loop, allows the user to input any angle value, and then displays the value. You can use
+the hex character constant ‘\xF8’, which usually prints a degree (°) symbol.*/
+
+#include<iostream>
+using namespace std;
+class Angle
+{
+private:
+	int deg;
+	float min;
+	char dir;
+public:
+	Angle(): deg(0),min(0),dir(0)
+	{ }
+	Angle(int dg,float mn,char dr) : deg(dg), min(mn), dir(dr)
+	{ }
+	void getdata()
+	{
+		cout << "Enter angle in degree: "<<endl;
+		cin >> deg;
+		cout << "Enter angle in Minutes: " << endl;
+		cin >> min;
+		cout << "Enter angle in Direction: " << endl;
+		cin >> dir;
+	}
+	void putdata()
+	{
+		cout << endl << deg << "\xF8" << min << "'" << dir << endl;
+	}
+};
+int main()
+{
+	Angle angle1(150, 30, 'E'), angle2;
+	angle1.putdata();
+	char ch = 'y';
+	do {
+
+		angle2.getdata();
+		angle2.putdata();
+		cout << "Enter '0' to exit!" << endl;
+		cin >> ch;
+	} while (ch == 'n');
+	return 0;
+}
+
+
+//Program#08
+/* Create a class that includes a data member that holds a “serial number” for each object
+created from the class. That is, the first object created will be numbered 1, the second 2,
+and so on.
+To do this, you’ll need another data member that records a count of how many objects
+have been created so far. (This member should apply to the class as a whole; not to
+individual objects. What keyword specifies this?) Then, as each object is created, its
+constructor can examine this count member variable to determine the appropriate serial
+number for the new object.
+Add a member function that permits an object to report its own serial number. Then
+write a main() program that creates three objects and queries each one about its serial
+number. They should respond I am object number 2, and so on.*/
+
+#include<iostream>
+using namespace std;
+class ObjCount
+{
+private:
+	static int count;
+	int num;
+public:
+	ObjCount()
+	{
+		count++;
+		num = count;
+		cout << " You have created   "<<num<<"  objects so far! "<<endl;
+	}
+	void total_Objects()
+	{ cout << "Total Number of Objects,You have Created "<<count;}
+};
+int ObjCount::count = 0;
+int main()
+{
+	ObjCount obj1, obj2, obj3;
+	obj3.total_Objects();
+	return 0;
+
+}
+
+//Program#09
+/*Transform the fraction structure from Exercise 8 in Chapter 4 into a fraction class.
+Member data is the fraction’s numerator and denominator. Member functions should
+accept input from the user in the form 3/5, and output the fraction’s value in the same
+format. Another member function should add two fraction values. Write a main() program
+that allows the user to repeatedly input two fractions and then displays their sum. After
+each operation, ask whether the user wants to continue.*/
+
+
+#include <iostream>
+using namespace std;
+class fraction
+{
+private:
+    int numerator, denomenator;
+public:
+    void take_frac(void)
+    {
+        char ch;
+        cin >> numerator >> ch >> denomenator;
+    }
+    void show_frac(void)
+    {
+        cout << numerator << "/" << denomenator;
+    }
+    void add_frac(fraction a, fraction b)
+    {
+        if (a.denomenator == b.denomenator) 
+        {
+            denomenator = a.denomenator;
+            numerator = a.numerator + b.numerator;
+        }
+        else
+        {
+            numerator = a.numerator * b.denomenator + a.denomenator * b.numerator;
+            denomenator = a.denomenator * b.denomenator;
+        }
+    }
+};
+int main(void)
+{
+    fraction a, b, c;
+    char ch;
+    cout << "Enter data in p/q form:\n ";
+    do
+    {
+        cout << "Enter fraction a: ";
+        a.take_frac();
+        cout << "Enter fraction b: ";
+        b.take_frac();
+        c.add_frac(a, b);
+        a.show_frac();
+        cout << " + ";
+        b.show_frac();
+        cout << " = ";
+        c.show_frac();
+        cout << endl << "Enter again? (y/n): ";
+        cin >> ch;
+        cout << endl;
+    } while (ch != 'n');
+    return  0 ;
+}
+
+//Program#10
+/*Create a class called ship that incorporates a ship’s number and location. Use the
+approach of Exercise 8 to number each ship object as it is created. Use two variables of
+the angle class from Exercise 7 to represent the ship’s latitude and longitude. A member
+function of the ship class should get a position from the user and store it in the object;
+another should report the serial number and position. Write a main() program that creates 
+three ships,asks the user to input the position of each, and then displays each ship’s
+number and position.*/
+
+#include<iostream>
+using namespace std ;
+class Angle
+{
+private:
+int deg;
+float min;
+char dir;
+public:
+Angle (): deg (0), min (0), dir (0)
+{ }
+void getdata ()
+{
+cout << "Enter angle in degree: " << endl;
+cin >> deg;
+cout << "Enter angle in Minutes: " << endl;
+cin >> min;
+cout << "Enter angle in Direction: " << endl;
+cin >> dir;
+}
+void putdata ()
+{
+cout << endl << deg << "\xF8" << min << "'" << dir << endl;
+}
+};
+class Ship
+{
+private:
+static int count;
+int num;
+Angle location;
+public:
+Ship ()
+{
+count++;
+num = count;
+}
+void get_input ()
+{
+location.getdata ();
+}
+void show_output ()
+{
+cout << "Serial N0: "<<num<<endl;
+cout << "Location" << endl;
+location.putdata ();
+  }
+};
+int Ship::count = 0;
+int main ()
+{
+Ship ship1, ship2, ship3;
+cout << " Input Information: \n";
+ship1.get_input ();
+cout << endl;
+ ship2.get_input ();
+ cout << endl;
+ship3.get_input();
+cout << endl;
+ cout << "Ships Information: \n";
+ ship1.show_output ();
+cout << endl;
+ship2.show_output();
+cout << endl;
+ship3.show_output();
+cout << endl;
+return 0;
+}
+
